@@ -13,7 +13,7 @@ VERSION_URL = "https://raw.githubusercontent.com/Aissaouileith31/school_data3/re
 
 
 def home(page: ft.Page):
-    version = "1.0"
+    version = "1.1"
     user_name = page.client_storage.get("username") or "User"
     user_id = page.client_storage.get("user_id") or "0000"
     page.title = "Archemede Dashboard"
@@ -183,9 +183,9 @@ def home(page: ft.Page):
                     # Visual Barcode Representation
                     ft.Text("BARCODE", size=10, weight="bold", color=PRIMARY),
                     ft.Image(
-                        src=f"https://bwipjs-api.metafloor.com/?bcid=code128&text={user_id}&scale=3&rotate=N&includetext&barcolor=ffffff",
-                        width=120,
-                        height=120,
+                        src=f"https://bwipjs-api.metafloor.com/?bcid=code39&text={user_id}&scale=3&rotate=N&includetext&barcolor=ffffff",
+                        width=200,
+                        height=170,
                     ),
                 ], horizontal_alignment="center"),
                 bgcolor="#1E293B",
@@ -227,7 +227,7 @@ def home(page: ft.Page):
             ft.ListTile(
                 leading=ft.Icon(ft.Icons.TRANSLATE, color=PRIMARY),
                 title=ft.Text("Changer la Langue"),
-                on_click=lambda _: print("Language Clicked")
+                on_click=lambda _:page.open(ft.AlertDialog(title=ft.Text("traduction"), content=ft.Text("La fonction de traduction n'a pas encore été achevée.")))
             ),
             ft.ListTile(
                 leading=ft.Icon(ft.Icons.HELP_OUTLINE, color=PRIMARY),
@@ -237,7 +237,7 @@ def home(page: ft.Page):
             ft.ListTile(
                 leading=ft.Icon(ft.Icons.LANGUAGE, color=PRIMARY),
                 title=ft.Text("Site Web de l'école"),
-                on_click=lambda _: print('web')
+                on_click=lambda _:page.open(ft.AlertDialog(title=ft.Text("site web"), content=ft.Text("Il n'existe actuellement aucun site web pour le moment.")))
             ),
             ft.ListTile(
                 leading=ft.Icon(ft.Icons.MAP_OUTLINED, color=PRIMARY),
@@ -252,7 +252,7 @@ def home(page: ft.Page):
                 on_click=logout,
                 width=200
             ),
-            ft.Text('version: 1.1')
+            ft.Text(f'version: {version}')
         ], horizontal_alignment="center", spacing=10),
         padding=20
     )
@@ -274,5 +274,3 @@ def home(page: ft.Page):
     page.add(tabs)
     check_version()
     fetch_data() # Initial load
-    
-
