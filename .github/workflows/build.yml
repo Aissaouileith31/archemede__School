@@ -1,0 +1,39 @@
+name: Build Flet APK
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12.6'
+
+      - name: Install dependencies
+        run: |
+          # 1. Install Flet and build tools
+          pip install flet[all]==0.28.3 
+          
+          # 2. Install your specific project libraries from your TOML
+          pip install flet-permission-handler==0.1.0 requests bcrypt plyer
+
+      - name: Build APK
+        run: |
+          # We point it to 'src' because your main.py is there
+          flet build apk src \
+            --project "Archemede School" \
+            --org "com.archemede" \
+            --android-permissions "android.permission.INTERNET,android.permission.POST_NOTIFICATIONS" \
+            --build-version "1.1" \
+            --build-number 1
+
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: archemede-school-apk
+          path: build/apk/*.apk
