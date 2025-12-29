@@ -1,0 +1,37 @@
+[project]
+name = "archemede-school"
+version = "0.1"
+description = "Archemede School Dashboard for pupel its a way to comunicate betwine school and eleve"
+readme = "README.md"
+requires-python = ">=3.9"
+authors = [
+    { name = "aissaoui, ghalay, ounase", email = "aissaouileith31@gmail.com" }
+]
+dependencies = [
+    "flet==0.28.3",
+    "flet-permission-handler==0.1.0",
+    "requests",
+    "bcrypt",
+    "plyer"
+]
+
+[tool.flet]
+# This is used to build the Android Bundle ID (com.archemede.school)
+org = "com.archemede"
+product = "Archemede School"
+company = "ITAcademy"
+copyright = "Copyright (C) 2025"
+
+[tool.flet.app]
+path = "src"
+
+[tool.uv]
+dev-dependencies = [
+    "flet[all]==0.28.3",
+]
+
+[tool.poetry]
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+flet = {extras = ["all"], version = "0.28.3"}
