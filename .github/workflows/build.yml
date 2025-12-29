@@ -24,11 +24,10 @@ jobs:
 
       - name: Build APK
         run: |
-          # We point it to 'src' because your main.py is there
           flet build apk src \
             --project "Archemede School" \
             --org "com.archemede" \
-            --android-permissions "android.permission.INTERNET,android.permission.POST_NOTIFICATIONS" \
+            --android-permissions "android.permission.INTERNET" "android.permission.POST_NOTIFICATIONS" \
             --build-version "1.1" \
             --build-number 1
 
