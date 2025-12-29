@@ -24,15 +24,17 @@ jobs:
 
       - name: Build APK
         run: |
+          # We use --output to force the file to a known location
           flet build apk src \
             --project "Archemede School" \
             --org "com.archemede" \
             --android-permissions android.permission.INTERNET=True android.permission.POST_NOTIFICATIONS=True \
             --build-version "1.1" \
-            --build-number 1
+            --build-number 1 \
+            --output output  # Forces result into a folder named 'output'
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: archemede-school-apk
-          path: src/*.apk
+          path: output/*.apk  # GitHub now knows exactly where to look
